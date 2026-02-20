@@ -1,0 +1,11 @@
+streamlit
+pandas
+numpy
+plotly
+matplotlib
+reportlab
+weasyprint
+openpyxl
+xlrd
+requests
+python-dotenv
