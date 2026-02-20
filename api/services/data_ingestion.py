@@ -140,12 +140,29 @@ class DataIngestionService:
     def ingest_from_buffer(self, buffer: io.BytesIO, filename: str) -> Dict[str, Any]:
         """
         Ingest data from a file buffer (used for Streamlit uploads).
+        Now handles messy CSV files with multiple encodings and skips bad lines.
         """
         file_ext = os.path.splitext(filename)[1].lower()
         
         try:
             if file_ext == '.csv':
-                df = pd.read_csv(buffer)
+                # Try different encodings and handle bad lines
+                encodings = ['utf-8', 'latin-1', 'iso-8859-1', 'cp1252']
+                df = None
+                for encoding in encodings:
+                    try:
+                        buffer.seek(0)  # Reset buffer for each attempt
+                        df = pd.read_csv(
+                            buffer,
+                            encoding=encoding,
+                            on_bad_lines='skip',  # Skip rows with inconsistent columns
+                            engine='python'       # More forgiving parser
+                        )
+                        break
+                    except (UnicodeDecodeError, pd.errors.ParserError):
+                        continue
+                if df is None:
+                    raise ValueError("Could not parse CSV with any supported encoding")
             elif file_ext in ['.xlsx', '.xls']:
                 df = pd.read_excel(buffer)
             elif file_ext == '.json':
