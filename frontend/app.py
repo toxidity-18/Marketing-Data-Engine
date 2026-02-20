@@ -363,7 +363,7 @@ elif page == "📤 Data Upload":
             
             # Preview
             st.markdown("### Data Preview")
-            st.dataframe(pd.DataFrame(st.session_state.upload_preview), use_container_width=True)
+            st.dataframe(pd.DataFrame(st.session_state.upload_preview), width='stretch')
             
             # Optional: clear button to reset
             if st.button("Clear Upload", key="clear_single"):
@@ -420,7 +420,7 @@ elif page == "📤 Data Upload":
             st.info(f"**Platforms detected:** {', '.join(st.session_state.multi_metadata['platforms'])}")
             
             st.markdown("### Merged Data Preview")
-            st.dataframe(pd.DataFrame(st.session_state.multi_preview), use_container_width=True)
+            st.dataframe(pd.DataFrame(st.session_state.multi_preview), width='stretch')
             
             if st.button("Clear Upload", key="clear_multi"):
                 for key in ['multi_success', 'multi_preview', 'multi_metadata']:
@@ -488,7 +488,7 @@ elif page == "🔧 Data Processing":
                 
                 # Preview
                 st.markdown("### Normalized Data Preview")
-                st.dataframe(pd.DataFrame(st.session_state.normalization_preview), use_container_width=True)
+                st.dataframe(pd.DataFrame(st.session_state.normalization_preview), width='stretch')
                 
                 # Optional: clear button to reset
                 if st.button("Clear Normalization", key="clear_norm"):
@@ -554,7 +554,7 @@ elif page == "🔧 Data Processing":
                         st.warning(f"Found {len(anomalies['anomalies'])} potential anomalies")
                         
                         anomaly_df = pd.DataFrame(anomalies['anomalies'])
-                        st.dataframe(anomaly_df, use_container_width=True)
+                        st.dataframe(anomaly_df, width='stretch')
                     else:
                         st.success("✅ No significant anomalies detected!")
                     
@@ -589,7 +589,7 @@ elif page == "🔧 Data Processing":
                         df = df[df['campaign_name'].isin(campaigns)]
                 
                 st.markdown(f"**Showing {len(df)} rows**")
-                st.dataframe(df, use_container_width=True)
+                st.dataframe(df, width='stretch')
                 
                 # Download
                 csv = df.to_csv(index=False)
@@ -624,16 +624,16 @@ elif page == "📈 Analytics":
                 
                 if 'spend' in df.columns:
                     fig = px.line(df, x='period', y='spend', title='Spend Over Time')
-                    st.plotly_chart(fig, use_container_width=True)
+                    st.plotly_chart(fig, width='stretch')
                 
                 if 'clicks' in df.columns and 'impressions' in df.columns:
                     fig = go.Figure()
                     fig.add_trace(go.Scatter(x=df['period'], y=df['clicks'], name='Clicks', yaxis='y'))
                     fig.add_trace(go.Scatter(x=df['period'], y=df['impressions']/100, name='Impressions/100', yaxis='y2'))
                     fig.update_layout(title='Clicks and Impressions', yaxis2=dict(overlaying='y', side='right'))
-                    st.plotly_chart(fig, use_container_width=True)
+                    st.plotly_chart(fig, width='stretch')
                 
-                st.dataframe(df, use_container_width=True)
+                st.dataframe(df, width='stretch')
         
         with tab2:
             st.markdown("### Campaign Analytics")
@@ -650,14 +650,14 @@ elif page == "📈 Analytics":
                 if 'spend' in df.columns:
                     fig = px.bar(df.sort_values('spend', ascending=False).head(10), 
                                 x='campaign_name', y='spend', title='Top 10 Campaigns by Spend')
-                    st.plotly_chart(fig, use_container_width=True)
+                    st.plotly_chart(fig, width='stretch')
                 
                 if 'roas' in df.columns:
                     fig = px.bar(df.sort_values('roas', ascending=False).head(10),
                                 x='campaign_name', y='roas', title='Top 10 Campaigns by ROAS')
-                    st.plotly_chart(fig, use_container_width=True)
+                    st.plotly_chart(fig, width='stretch')
                 
-                st.dataframe(df, use_container_width=True)
+                st.dataframe(df, width='stretch')
         
         with tab3:
             st.markdown("### Platform Comparison")
@@ -674,9 +674,9 @@ elif page == "📈 Analytics":
                     import plotly.express as px
                     
                     fig = px.pie(df, values='spend', names='platform', title='Spend Distribution by Platform')
-                    st.plotly_chart(fig, use_container_width=True)
+                    st.plotly_chart(fig, width='stretch')
                     
-                    st.dataframe(df, use_container_width=True)
+                    st.dataframe(df, width='stretch')
                     
                     # Rankings
                     if result.get('rankings'):
@@ -776,13 +776,26 @@ elif page == "📄 Reports":
                     result = api_call(f'/report/excel/{data_id}', method='POST', data=payload)
                 
                 if result and result.get('success'):
-                    st.success("✅ Excel report generated!")
-                    st.download_button(
-                        "📥 Download Excel Report",
-                        data=open(result['filepath'], 'rb').read(),
-                        file_name=result['filename'],
-                        mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                    )
+                    # Download the file from the backend
+                    filename = result['filename']
+                    download_url = f"{API_BASE_URL}/download/{filename}"
+                    
+                    try:
+                        response = requests.get(download_url)
+                        if response.status_code == 200:
+                            st.success("✅ Excel report generated!")
+                            st.download_button(
+                                "📥 Download Excel Report",
+                                data=response.content,
+                                file_name=filename,
+                                mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                            )
+                        else:
+                            st.error("Failed to download the report file.")
+                    except Exception as e:
+                        st.error(f"Download error: {str(e)}")
+                else:
+                    st.error(f"Error: {result.get('error', 'Unknown error')}" if result else "API connection failed")
         
         with col2:
             st.markdown("### PDF Report")
@@ -801,18 +814,26 @@ elif page == "📄 Reports":
                     result = api_call(f'/report/pdf/{data_id}', method='POST', data=payload)
                 
                 if result and result.get('success'):
-                    st.success("✅ Report generated!")
+                    # Download the HTML file (to be printed as PDF)
+                    filename = result['filename'].replace('.pdf', '.html')
+                    download_url = f"{API_BASE_URL}/download/{filename}"
                     
-                    # Show HTML link
-                    with open(result['html_filepath'], 'r') as f:
-                        html_content = f.read()
-                    
-                    st.download_button(
-                        "📥 Download HTML Report (Print to PDF)",
-                        data=html_content,
-                        file_name=result['filename'].replace('.pdf', '.html'),
-                        mime='text/html'
-                    )
+                    try:
+                        response = requests.get(download_url)
+                        if response.status_code == 200:
+                            st.success("✅ Report generated!")
+                            st.download_button(
+                                "📥 Download HTML Report (Print to PDF)",
+                                data=response.content,
+                                file_name=filename,
+                                mime='text/html'
+                            )
+                        else:
+                            st.error("Failed to download the report file.")
+                    except Exception as e:
+                        st.error(f"Download error: {str(e)}")
+                else:
+                    st.error(f"Error: {result.get('error', 'Unknown error')}" if result else "API connection failed")
         
         st.markdown("---")
         
@@ -823,15 +844,22 @@ elif page == "📄 Reports":
                 result = api_call(f'/export/csv/{data_id}')
             
             if result and result.get('success'):
-                with open(result['filepath'], 'r') as f:
-                    csv_content = f.read()
+                filename = result['filename']
+                download_url = f"{API_BASE_URL}/download/{filename}"
                 
-                st.download_button(
-                    "📥 Download CSV",
-                    data=csv_content,
-                    file_name=result['filename'],
-                    mime='text/csv'
-                )
+                try:
+                    response = requests.get(download_url)
+                    if response.status_code == 200:
+                        st.download_button(
+                            "📥 Download CSV",
+                            data=response.content,
+                            file_name=filename,
+                            mime='text/csv'
+                        )
+                    else:
+                        st.error("Failed to download the CSV file.")
+                except Exception as e:
+                    st.error(f"Download error: {str(e)}")
 
 
 # Footer
