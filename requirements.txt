@@ -9,3 +9,9 @@ requests
 python-dotenv
 werkzeug
 gunicorn
+
+streamlit
+plotly
+matplotlib
+reportlab
+weasyprint
