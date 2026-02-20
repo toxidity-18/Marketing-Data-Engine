@@ -1,0 +1,26 @@
+date,campaign_name,ad_group,keyword,impressions,clicks,spend,conversions,conversion_value,quality_score
+2024-01-01,Brand_Search,Brand_Terms,"brand name",15000,1200,450.00,45,2250.00,10
+2024-01-01,Brand_Search,Brand_Terms,"brand official",12000,950,380.00,38,1900.00,9
+2024-01-01,Competitor_Search,Competitor_Terms,"competitor brand",25000,850,850.00,25,1250.00,6
+2024-01-01,Competitor_Search,Competitor_Terms,"competitor alternative",20000,720,720.00,18,900.00,5
+2024-01-01,Display_Retargeting,Site_Visitors,"",50000,1500,750.00,30,1500.00,
+2024-01-02,Brand_Search,Brand_Terms,"brand name",16000,1300,485.00,52,2600.00,10
+2024-01-02,Brand_Search,Brand_Terms,"brand official",12500,1000,400.00,42,2100.00,9
+2024-01-02,Competitor_Search,Competitor_Terms,"competitor brand",26000,900,900.00,28,1400.00,6
+2024-01-02,Competitor_Search,Competitor_Terms,"competitor alternative",21000,750,750.00,20,1000.00,5
+2024-01-02,Display_Retargeting,Site_Visitors,"",55000,1650,825.00,33,1650.00,
+2024-01-03,Brand_Search,Brand_Terms,"brand name",14000,1100,410.00,40,2000.00,10
+2024-01-03,Brand_Search,Brand_Terms,"brand official",11500,880,350.00,35,1750.00,9
+2024-01-03,Competitor_Search,Competitor_Terms,"competitor brand",24000,800,800.00,22,1100.00,6
+2024-01-03,Competitor_Search,Competitor_Terms,"competitor alternative",19000,700,700.00,16,800.00,5
+2024-01-03,Display_Retargeting,Site_Visitors,"",48000,1400,700.00,28,1400.00,
+2024-01-04,Brand_Search,Brand_Terms,"brand name",17000,1400,520.00,55,2750.00,10
+2024-01-04,Brand_Search,Brand_Terms,"brand official",13000,1050,420.00,45,2250.00,9
+2024-01-04,Competitor_Search,Competitor_Terms,"competitor brand",27000,950,950.00,30,1500.00,6
+2024-01-04,Competitor_Search,Competitor_Terms,"competitor alternative",22000,800,800.00,22,1100.00,5
+2024-01-04,Display_Retargeting,Site_Visitors,"",58000,1750,875.00,35,1750.00,
+2024-01-05,Brand_Search,Brand_Terms,"brand name",18000,1500,560.00,60,3000.00,10
+2024-01-05,Brand_Search,Brand_Terms,"brand official",13500,1100,440.00,48,2400.00,9
+2024-01-05,Competitor_Search,Competitor_Terms,"competitor brand",28000,1000,1000.00,32,1600.00,6
+2024-01-05,Competitor_Search,Competitor_Terms,"competitor alternative",23000,850,850.00,24,1200.00,5
+2024-01-05,Display_Retargeting,Site_Visitors,"",60000,1800,900.00,36,1800.00,

@@ -1,0 +1,207 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Marketing Performance Report - Client</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    max-width: 1000px;
+                    margin: 0 auto;
+                    padding: 20px;
+                    color: #333;
+                }
+                .header {
+                    text-align: center;
+                    padding: 30px 0;
+                    border-bottom: 3px solid #2563eb;
+                    margin-bottom: 30px;
+                }
+                .header h1 {
+                    color: #1e40af;
+                    margin: 0;
+                }
+                .header p {
+                    color: #666;
+                    margin: 10px 0 0;
+                }
+                .metrics-grid {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: 15px;
+                    margin-bottom: 30px;
+                }
+                .metric-card {
+                    background: #f8fafc;
+                    padding: 20px;
+                    border-radius: 8px;
+                    text-align: center;
+                    border: 1px solid #e2e8f0;
+                }
+                .metric-card h3 {
+                    margin: 0;
+                    color: #64748b;
+                    font-size: 12px;
+                    text-transform: uppercase;
+                }
+                .metric-card .value {
+                    font-size: 24px;
+                    font-weight: bold;
+                    color: #1e40af;
+                    margin: 10px 0 0;
+                }
+                .section {
+                    margin-bottom: 30px;
+                }
+                .section h2 {
+                    color: #1e40af;
+                    border-bottom: 2px solid #e2e8f0;
+                    padding-bottom: 10px;
+                }
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 15px;
+                }
+                th, td {
+                    padding: 12px;
+                    text-align: left;
+                    border-bottom: 1px solid #e2e8f0;
+                }
+                th {
+                    background: #f1f5f9;
+                    font-weight: 600;
+                    color: #475569;
+                }
+                tr:hover {
+                    background: #f8fafc;
+                }
+                .insights li {
+                    padding: 8px 0;
+                    border-bottom: 1px solid #e2e8f0;
+                }
+                .insights li.positive {
+                    color: #16a34a;
+                }
+                .insights li.warning {
+                    color: #ea580c;
+                }
+                .insights li.critical {
+                    color: #dc2626;
+                    font-weight: bold;
+                }
+                .recommendations li {
+                    padding: 8px 0;
+                    margin-bottom: 5px;
+                }
+                .footer {
+                    text-align: center;
+                    padding-top: 30px;
+                    border-top: 1px solid #e2e8f0;
+                    color: #64748b;
+                    font-size: 12px;
+                }
+                @media print {
+                    body {
+                        padding: 0;
+                    }
+                }
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <h1>Marketing Performance Report</h1>
+                <p>Client | Generated on February 20, 2026</p>
+            </div>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h3>Total Spend</h3>
+                    <div class="value">$485,846.49</div>
+                </div>
+                <div class="metric-card">
+                    <h3>Total Impressions</h3>
+                    <div class="value">10,174,086</div>
+                </div>
+                <div class="metric-card">
+                    <h3>Total Clicks</h3>
+                    <div class="value">285,663</div>
+                </div>
+                <div class="metric-card">
+                    <h3>Conversions</h3>
+                    <div class="value">16,037</div>
+                </div>
+            </div>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h3>Overall CTR</h3>
+                    <div class="value">2.81%</div>
+                </div>
+                <div class="metric-card">
+                    <h3>Average CPC</h3>
+                    <div class="value">$1.70</div>
+                </div>
+                <div class="metric-card">
+                    <h3>Average CPA</h3>
+                    <div class="value">$30.30</div>
+                </div>
+                <div class="metric-card">
+                    <h3>Overall ROAS</h3>
+                    <div class="value">2.00x</div>
+                </div>
+            </div>
+            
+            
+            <div class="section">
+                <h2>Platform Performance</h2>
+                <table>
+                    <tr>
+                        <th>Platform</th>
+                        <th>Spend</th>
+                        <th>Impressions</th>
+                        <th>Clicks</th>
+                        <th>CTR</th>
+                        <th>ROAS</th>
+                    </tr>
+                    
+                <tr>
+                    <td>TikTok Ads</td>
+                    <td>$169,716.50</td>
+                    <td>3,484,551</td>
+                    <td>94,930</td>
+                    <td>2.72%</td>
+                    <td>2.05x</td>
+                </tr>
+                
+                <tr>
+                    <td>Google Ads</td>
+                    <td>$158,483.05</td>
+                    <td>3,237,939</td>
+                    <td>94,934</td>
+                    <td>2.93%</td>
+                    <td>1.88x</td>
+                </tr>
+                
+                <tr>
+                    <td>Meta Ads</td>
+                    <td>$157,646.94</td>
+                    <td>3,451,596</td>
+                    <td>95,799</td>
+                    <td>2.78%</td>
+                    <td>2.08x</td>
+                </tr>
+                
+                </table>
+            </div>
+            
+            
+            
+            
+            <div class="footer">
+                <p>Generated by Marketing Data Engine | Belva Mar-Tech Agency Tools</p>
+                <p>Report generated at 2026-02-20 10:21:02</p>
+            </div>
+        </body>
+        </html>
+        

@@ -1,0 +1,33 @@
+# Flask API
+flask
+flask-cors
+flask-limiter
+
+# Streamlit Frontend
+streamlit
+
+# Data Processing
+pandas
+numpy
+openpyxl
+xlrd
+
+# Data Analysis & ML
+scikit-learn
+scipy
+
+# Visualization
+plotly
+matplotlib
+
+# Report Generation
+reportlab
+weasyprint
+
+# AI/LLM Integration
+requests
+
+# Utilities
+python-dotenv
+werkzeug
+gunicorn 
